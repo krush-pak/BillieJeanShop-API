@@ -6,7 +6,7 @@ module.exports = (express, passport, ensureAuthenticated, session) => {
   const bcrypt = require("bcryptjs");
   const stripUser = require("../../helpers/stripUser");
 
-  router.get("/user", ensureAuthenticated, (req, res, next) => {
+  router.get("/user", ensureAuthenticated, (req, res) => {
     res.json({ message: "user is authenticated" });
   });
 
