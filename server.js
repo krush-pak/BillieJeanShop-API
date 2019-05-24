@@ -13,6 +13,7 @@ const bodyParser = require("body-parser");
 require("dotenv").config();
 
 const app = express();
+const cors = require("cors");
 const port = process.env.PORT || 9000;
 
 const ensureAuthenticated = require("./app/middleware/ensureAuthenticated");
@@ -29,6 +30,7 @@ mongoose.connect(uri, { useNewUrlParser: true });
 
 // Middleware
 app.use(bodyParser.json());
+app.use(cors());
 
 app.use(
   session({
