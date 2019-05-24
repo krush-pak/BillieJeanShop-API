@@ -10,9 +10,10 @@ const passport = require("./app/auth/strategy")(
 
 const express = require("express");
 const bodyParser = require("body-parser");
+require("dotenv").config();
 
 const app = express();
-const port = 9000;
+const port = process.env.PORT || 9000;
 
 const ensureAuthenticated = require("./app/middleware/ensureAuthenticated");
 
@@ -21,8 +22,9 @@ const ordersRouter = require("./app/routes/api/order");
 const productsRouter = require("./app/routes/api/product");
 
 //Set up default mongoose connection
-const uri =
-  "mongodb+srv://admin:!QAZ2wsx@billie-shop-4jtkc.mongodb.net/test?retryWrites=true";
+const uri = `mongodb+srv://${process.env.MLAB_DB_USER}:${
+  process.env.MLAB_DB_PASSWORD
+}@billie-shop-4jtkc.mongodb.net/test?retryWrites=true`;
 mongoose.connect(uri, { useNewUrlParser: true });
 
 // Middleware
@@ -30,7 +32,7 @@ app.use(bodyParser.json());
 
 app.use(
   session({
-    secret: "test",
+    secret: process.env.COOKIE_SECRET,
     resave: true,
     saveUninitialized: true,
     name: "sid"
