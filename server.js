@@ -29,7 +29,12 @@ mongoose.connect(uri, { useNewUrlParser: true });
 
 // Middleware
 app.use(bodyParser.json());
-app.use(cors());
+app.use(cors(
+    {
+        credentials: true,
+        origin: 'http://localhost:3000'
+    }
+));
 
 app.use(
   session({

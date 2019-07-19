@@ -59,13 +59,14 @@ module.exports = (express, passport, ensureAuthenticated, session) => {
   // @desc    Login user
   // @access  Public
   router.post("/login", (req, res, next) => {
-    passport.authenticate("local", (err, user) => {
-      if (err) console.error(err);
+    passport.authenticate("local", (err, user, info) => {
+      if (err) console.log(err, info);
+
       req.logIn(user, err => {
-        console.log(user);
+        console.log('user', user);
         return res.json({ err, user: stripUser(user) });
       });
-    })(req, res, next);
+    })(req, res, next)
   });
 
   router.get("/logout", (req, res) => {
